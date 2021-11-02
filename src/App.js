@@ -1,3 +1,5 @@
+import "./components/Expenses.css";
+import Card from "./components/Card";
 import ExpenseItem from "./components/ExpenseItem";
 
 function App() {
@@ -24,7 +26,7 @@ function App() {
   ];
 
   return (
-    <div>
+    <Card className="expenses">
       <h1>Expense Tracker</h1>
       <ExpenseItem
         title={expenses[0].title}
@@ -46,7 +48,7 @@ function App() {
         amount={expenses[3].amount}
         date={expenses[3].date}
       />
-    </div>
+    </Card>
   );
 }
 
