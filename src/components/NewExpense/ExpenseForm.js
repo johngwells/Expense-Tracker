@@ -28,26 +28,32 @@ function ExpenseForm() {
   const amountChangeHandler = (e) => {
     setUserInput({
       ...userInput,
-      enteredAmount: e.target.value
+      enteredAmount: e.target.value,
     });
   };
 
   const dateChangeHandler = (e) => {
     setUserInput({
       ...userInput,
-      enteredDate: e.target.value
+      enteredDate: e.target.value,
     });
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const expenseData = userInput;
-    console.log(expenseData);
-    // setUserInput({
-    //   enteredTitle: "",
-    //   enteredAmount: "",
-    //   enteredDate: ""
-    // });
+    const inputData = {
+      title: userInput.enteredTitle,
+      amount: userInput.enteredAmount,
+      date: new Date(userInput.enteredDate)
+    }
+    console.log(inputData)
+
+    // Clear Data
+    setUserInput({
+      enteredTitle: "",
+      enteredAmount: "",
+      enteredDate: ""
+    });
   };
 
   return (
@@ -55,12 +61,13 @@ function ExpenseForm() {
       <div className="new-expense__controls">
         <div className="new-expense__control">
           <label>Title</label>
-          <input type="text" onChange={titleChangeHandler} />
+          <input type="text" value={userInput.enteredTitle} onChange={titleChangeHandler} />
         </div>
         <div className="new-expense__control">
           <label>Amount</label>
           <input
             type="number"
+            value={userInput.enteredAmount}
             onChange={amountChangeHandler}
             min="0.01"
             step="0.01"
@@ -70,6 +77,7 @@ function ExpenseForm() {
           <label>Date</label>
           <input
             type="date"
+            value={userInput.enteredDate}
             onChange={dateChangeHandler}
             min="2019-01-01"
             max="2022-12-31"
