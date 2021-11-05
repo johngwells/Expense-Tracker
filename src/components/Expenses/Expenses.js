@@ -1,31 +1,44 @@
-import Card from '../UI/Card';
-import ExpenseItem from "./ExpenseItem";
+import React, { useState } from "react";
 
-function Expenses({ item }) {
+import Card from "../UI/Card";
+import ExpenseItem from "./ExpenseItem";
+import ExpensesFilter from "./ExpensesFilter";
+
+// ExpenseFilter.js
+// listen to changes on the dropdown
+// a listener when user selects a picked year
+// Picked value from expensefilter to the expenses component
+// pass props to expenses.js
+// store state on expenses.js
+
+function Expenses({ items }) {
+  const [filteredYear, setFilteredYear] = useState("2020");
+
+  const saveUserSelectedYear = (selectedYear) => {
+    setFilteredYear(selectedYear);
+  };
+  console.log(filteredYear);
+
   return (
-    <Card className="expenses">
-      <h1>Expense Tracker</h1>
-      <ExpenseItem
-        title={item[0].title}
-        amount={item[0].amount}
-        date={item[0].date}
-      />
-      <ExpenseItem
-        title={item[1].title}
-        amount={item[1].amount}
-        date={item[1].date}
-      />
-      <ExpenseItem
-        title={item[2].title}
-        amount={item[2].amount}
-        date={item[2].date}
-      />
-      <ExpenseItem
-        title={item[3].title}
-        amount={item[3].amount}
-        date={item[3].date}
-      />
-    </Card>
+    <>
+      <Card className="expenses">
+        <h1>Expense Tracker</h1>
+        <ExpensesFilter
+          selected={filteredYear}
+          onUserSelectedYear={saveUserSelectedYear}
+        />
+        {items.map((expense) => {
+          return (
+            <ExpenseItem
+              key={Math.random()}
+              title={expense.title}
+              amount={expense.amount}
+              date={expense.date}
+            />
+          );
+        })}
+      </Card>
+    </>
   );
 }
 
