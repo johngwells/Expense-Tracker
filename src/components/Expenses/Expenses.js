@@ -17,7 +17,10 @@ function Expenses({ items }) {
   const saveUserSelectedYear = (selectedYear) => {
     setFilteredYear(selectedYear);
   };
-  console.log(filteredYear);
+
+  const filteredExpenses = items.filter((expense) => {
+    return expense.date.getFullYear().toString() === filteredYear;
+  });
 
   return (
     <>
@@ -27,16 +30,16 @@ function Expenses({ items }) {
           selected={filteredYear}
           onUserSelectedYear={saveUserSelectedYear}
         />
-        {items.map((expense) => {
-          return (
+        {filteredExpenses.length === 0 && <p>No Expenses for this year</p>}
+        {filteredExpenses.length > 0 &&
+          filteredExpenses.map((expense) => (
             <ExpenseItem
               key={Math.random()}
               title={expense.title}
               amount={expense.amount}
               date={expense.date}
             />
-          );
-        })}
+          ))}
       </Card>
     </>
   );
