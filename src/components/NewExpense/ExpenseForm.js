@@ -43,7 +43,7 @@ function ExpenseForm(props) {
     e.preventDefault();
     const inputData = {
       title: userInput.enteredTitle,
-      amount: userInput.enteredAmount,
+      amount: +userInput.enteredAmount,
       date: new Date(userInput.enteredDate)
     }
     // console.log(inputData)
